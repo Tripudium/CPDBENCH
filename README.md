@@ -139,7 +139,46 @@ $ sudo apt install r-base r-base-dev
 Once R is installed, install the required R packages:
 
 ```bash
-$ Rscript -e "install.packages(c('argparse', 'exactRankTests'))"
+# Method 1: Using Rscript (recommended)
+$ Rscript -e "install.packages(c('argparse', 'exactRankTests'), repos='https://cran.rstudio.com/')"
+
+# Method 2: If Method 1 fails, try installing packages individually
+$ Rscript -e "install.packages('argparse', repos='https://cran.rstudio.com/')"
+$ Rscript -e "install.packages('exactRankTests', repos='https://cran.rstudio.com/')"
+
+# Method 3: Interactive R session (if Rscript fails)
+$ R
+> install.packages(c("argparse", "exactRankTests"))
+> quit()
+```
+
+**Troubleshooting R package installation:**
+
+If you encounter issues, try these solutions:
+
+```bash
+# On macOS: If you get permission errors
+$ sudo Rscript -e "install.packages(c('argparse', 'exactRankTests'), repos='https://cran.rstudio.com/')"
+
+# On Linux: Ensure development tools are installed
+$ sudo apt install r-base-dev libcurl4-openssl-dev libssl-dev libxml2-dev
+
+# Check if packages installed correctly
+$ Rscript -e "library(argparse); library(exactRankTests); cat('✅ R packages installed successfully\n')"
+```
+
+**Common Issues and Solutions:**
+
+- **Issue**: `repository 'https://cran.r-project.org' is not available`
+  - **Solution**: Try using a different CRAN mirror or check your internet connection
+  
+- **Issue**: `Warning: unable to access index for repository`
+  - **Solution**: Update R to the latest version or try a different repository URL
+
+- **Issue**: `exactRankTests` package not found
+  - **Solution**: This package might be archived. Install from source:
+  ```bash
+  $ Rscript -e "install.packages('exactRankTests', repos='https://cran.r-project.org/', type='source')"
 ```
 
 Subsequently we can use make to reproduce the experimental results:
