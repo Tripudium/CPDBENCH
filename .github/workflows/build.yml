@@ -1,4 +1,4 @@
-name: Reproducible Research
+name: CPDBENCH CI
 
 on:
   push:
@@ -11,8 +11,8 @@ on:
     - cron: 42 8 */21 * *
 
 jobs:
-  tcpdbench-ubuntu:
-    name: Check TCPDBench (direct)
+  cpdbench-ubuntu:
+    name: CPDBENCH Analysis Pipeline
     runs-on: ubuntu-latest
 
     steps:
@@ -40,8 +40,14 @@ jobs:
         with:
           submodules: true
 
+      - name: Install uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+        shell: bash
+
       - name: Install Python dependencies
-        run: pip install -r ./analysis/requirements.txt
+        run: |
+          source $HOME/.cargo/env
+          uv sync --all-extras
         shell: bash
 
       - name: Clone TCPD
@@ -68,13 +74,3 @@ jobs:
         run: git checkout ./analysis/output/cd_diagrams/*.pdf && git checkout ./analysis/output/figures/anno_hist/histogram*.pdf && git diff --exit-code
         shell: bash
 
-  tcpdbench-docker:
-    name: Check TCPDBench (docker)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: TCPDBench docker check
-        run: ./.github/scripts/test_docker.sh
-        shell: bash

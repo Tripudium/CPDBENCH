@@ -1,3 +1,63 @@
-*/__pycache__/
-*.pyc
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# uv
+.venv/
+uv.lock
+
+# Virtual environments (legacy)
+venv/
+env/
+ENV/
+
+# Analysis outputs
+analysis/output/
+abed_results/
+staging/
+logs/
+zips/
+
+# R
+.Rprofile
+.Renviron
+execs/R/rlibs/
+
+# LaTeX
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Datasets (should be obtained separately)
 datasets/

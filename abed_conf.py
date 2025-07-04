@@ -379,21 +379,21 @@ COMMANDS = {
         "--prior-k {prior_k}"
     ),
     "oracle_bocpdms": (
-        "source {execdir}/python/bocpdms/venv/bin/activate && "
+        "uv run --project {execdir}/python/bocpdms "
         "python {execdir}/python/cpdbench_bocpdms.py "
         "-i {datadir}/{dataset}.json --intensity {intensity} "
         "--prior-a {prior_a} --prior-b {prior_b} --threshold 100 "
         "--use-timeout"
     ),
     "oracle_rbocpdms": (
-        "source {execdir}/python/rbocpdms/venv/bin/activate && "
+        "uv run --project {execdir}/python/rbocpdms "
         "python {execdir}/python/cpdbench_rbocpdms.py "
         "-i {datadir}/{dataset}.json --intensity {intensity} "
         "--prior-a {prior_a} --prior-b {prior_b} --threshold 100 "
         "--alpha-param {alpha_param} --alpha-rld {alpha_rld} --use-timeout"
     ),
     "oracle_zero": (
-        "python {execdir}/python/cpdbench_zero.py "
+        "uv run python {execdir}/python/cpdbench_zero.py "
         "-i {datadir}/{dataset}.json"
     ),
     "default_amoc": (
@@ -450,20 +450,20 @@ COMMANDS = {
         "--prior-a 1.0 --prior-b 1.0 --prior-k 1.0"
     ),
     "default_bocpdms": (
-        "source {execdir}/python/bocpdms/venv/bin/activate && "
+        "uv run --project {execdir}/python/bocpdms "
         "python {execdir}/python/cpdbench_bocpdms.py "
         "-i {datadir}/{dataset}.json --intensity 100 --prior-a 1.0 "
         "--prior-b 1.0 --threshold 0"
     ),
     "default_rbocpdms": (
-        "source {execdir}/python/rbocpdms/venv/bin/activate && "
+        "uv run --project {execdir}/python/rbocpdms "
         "python {execdir}/python/cpdbench_rbocpdms.py "
         "-i {datadir}/{dataset}.json --intensity 100 --prior-a 1.0 "
         "--prior-b 1.0 --threshold 100 --alpha-param 0.5 --alpha-rld 0.5 "
         "--timeout 240"
     ),
     "default_zero": (
-        "python {execdir}/python/cpdbench_zero.py "
+        "uv run python {execdir}/python/cpdbench_zero.py "
         "-i {datadir}/{dataset}.json"
     ),
 }

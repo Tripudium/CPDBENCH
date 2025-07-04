@@ -1,7 +1,21 @@
-# Turing Change Point Detection Benchmark
+# Change Point Detection Benchmark (CPDBENCH)
 
-[![Reproducible Research](https://github.com/alan-turing-institute/TCPDBench/workflows/Reproducible%20Research/badge.svg)](https://github.com/alan-turing-institute/TCPDBench/actions?query=workflow%3A%22Reproducible+Research%22)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3740582.svg)](https://doi.org/10.5281/zenodo.3740582)
+[![Reproducible Research](https://github.com/Tripudium/CPDBENCH/workflows/Reproducible%20Research/badge.svg)](https://github.com/Tripudium/CPDBENCH/actions?query=workflow%3A%22Reproducible+Research%22)
+
+*A modern, uv-powered implementation of the Turing Change Point Detection Benchmark*
+
+## What's New in CPDBENCH 2.0
+
+This is a modernized version of the original [TCPDBench](https://github.com/alan-turing-institute/TCPDBench) with significant improvements:
+
+- **🚀 Fast Dependencies**: Uses [uv](https://docs.astral.sh/uv/) for lightning-fast Python dependency management
+- **🧹 Simplified Setup**: Removed Docker complexity in favor of native development
+- **📚 Better Documentation**: Comprehensive installation guides for all platforms  
+- **🔧 Modern Tooling**: Updated CI/CD, better error handling, development tools
+- **🌍 Cross-Platform**: Improved support for macOS, Linux, and Windows
+- **⚡ Performance**: Faster development workflow and dependency resolution
+
+For migration details, see [MIGRATION.md](MIGRATION.md).
 
 Welcome to the repository for the Turing Change Point Detection Benchmark, a 
 benchmark evaluation of change point detection algorithms developed at [The 
@@ -9,19 +23,22 @@ Alan Turing Institute](https://turing.ac.uk). This benchmark uses the time
 series from the [Turing Change Point 
 Dataset](https://github.com/alan-turing-institute/TCPD) (TCPD).
 
-**Useful links:**
-- [Turing Change Point Detection 
-  Benchmark](https://github.com/alan-turing-institute/TCPDBench)
-- [Turing Change Point Dataset](https://github.com/alan-turing-institute/TCPD)
-- [An Evaluation of Change Point Detection Algorithms](https://arxiv.org/abs/2003.06222) by 
-  [Gertjan van den Burg](https://gertjan.dev) and [Chris 
-  Williams](https://homepages.inf.ed.ac.uk/ckiw/).
-- [Annotation Tool](https://github.com/alan-turing-institute/annotatechange)
+**Key Features:**
+- 🚀 **Modern Python tooling** with uv for fast dependency management
+- 📊 **14 change point detection algorithms** evaluated on 42 real-world datasets
+- 🔬 **Reproducible research** with comprehensive analysis pipeline
+- 🌐 **Multi-language support** for Python and R methods
+- 📈 **Publication-ready outputs** including tables, figures, and statistical analysis
+
+**Related Resources:**
+- [Original TCPDBench](https://github.com/alan-turing-institute/TCPDBench) - Original implementation
+- [Turing Change Point Dataset](https://github.com/alan-turing-institute/TCPD) - Dataset repository
+- [Research Paper](https://arxiv.org/abs/2003.06222) - "An Evaluation of Change Point Detection Algorithms"
+- [Annotation Tool](https://github.com/alan-turing-institute/annotatechange) - For dataset annotation
 
 If you encounter a problem when using this repository or simply want to ask a 
 question, please don't hesitate to [open an issue on 
-GitHub](https://github.com/alan-turing-institute/TCPDBench/issues) or send an 
-email to ``gertjanvandenburg at gmail dot com``.
+GitHub](https://github.com/Tripudium/CPDBENCH/issues).
 
 ## Introduction
 
@@ -67,31 +84,65 @@ all the tables and figures in the paper.
 
 This repository contains all the code to generate the results 
 (tables/figures/constants) from the paper, as well as to reproduce the 
-experiments entirely. You can either install the dependencies directly on your 
-machine or use the provided Dockerfile (see below). If you don't use Docker, 
-first clone this repository using:
+experiments entirely. First clone this repository using:
 
-```
-$ git clone --recurse-submodules https://github.com/alan-turing-institute/TCPDBench
+```bash
+$ git clone --recurse-submodules https://github.com/Tripudium/CPDBENCH
 ```
 
 ### Generating Tables/Figures
 
 Generating the tables and figures from the paper is done through the scripts 
 in ``analysis/scripts`` and can be run through the provided ``Makefile``. A 
-working Python and R installation is necessary to reproduce the analysis. For 
-Python, install the required dependencies by running:
+working Python and R installation is necessary to reproduce the analysis. 
+
+#### Installing Python Dependencies
+
+We recommend using [uv](https://docs.astral.sh/uv/) for Python dependency management:
+
+```
+$ uv sync --all-extras
+```
+
+Alternatively, you can use pip:
 
 ```
 $ pip install -r ./analysis/requirements.txt
 ```
 
-For R, we need the 
-[argparse](https://cran.r-project.org/web/packages/argparse/index.html) and
-[exactRankTests](https://cran.r-project.org/web/packages/exactRankTests/index.html) 
-packages, which we can install as follows from the command line:
+#### Installing R and R Dependencies
 
+First, install R and Rscript on your system:
+
+**macOS:**
+```bash
+# Using Homebrew (recommended)
+$ brew install r
+
+# Or download from CRAN
+# Visit https://cran.r-project.org/bin/macosx/
 ```
+
+**Linux (Ubuntu/Debian):**
+```bash
+# Update package list
+$ sudo apt update
+
+# Install R
+$ sudo apt install r-base r-base-dev
+
+# For other distributions, see: https://cran.r-project.org/bin/linux/
+```
+
+**Windows:**
+```
+# Download and install from CRAN
+# Visit https://cran.r-project.org/bin/windows/base/
+```
+
+Once R is installed, install the required R packages:
+
+```bash
 $ Rscript -e "install.packages(c('argparse', 'exactRankTests'))"
 ```
 
@@ -101,13 +152,62 @@ Subsequently we can use make to reproduce the experimental results:
 $ make results
 ```
 
-The results will be placed in ``./analysis/output``. Note that to generate the 
-figures a working LaTeX and ``latexmk`` installation is needed.
+The results will be placed in ``./analysis/output``. 
+
+#### LaTeX Dependencies (Required for Figure Generation)
+
+To generate figures, you need a working LaTeX installation with ``latexmk``:
+
+**macOS:**
+```bash
+# Using Homebrew (recommended)
+$ brew install --cask mactex
+
+# Or install BasicTeX (smaller)
+$ brew install --cask basictex
+$ sudo tlmgr update --self
+$ sudo tlmgr install latexmk
+```
+
+**Linux (Ubuntu/Debian):**
+```bash
+$ sudo apt install texlive-full
+# Or for a minimal installation:
+$ sudo apt install texlive-latex-base texlive-latex-extra latexmk
+```
+
+**Windows:**
+```
+# Download and install MiKTeX or TeX Live
+# MiKTeX: https://miktex.org/download
+# TeX Live: https://tug.org/texlive/windows.html
+```
+
+#### Verifying Your Installation
+
+You can verify that all dependencies are correctly installed:
+
+```bash
+# Check Python and uv
+$ python --version
+$ uv --version
+
+# Check R
+$ R --version
+$ Rscript --version
+
+# Check LaTeX
+$ latex --version
+$ latexmk --version
+
+# Test the complete setup
+$ uv sync --all-extras
+$ make venvs  # This will test both Python (uv) and R setup
+```
 
 ### Reproducing the experiments
 
-To fully reproduce the experiments, some additional steps are needed. Note 
-that the Docker procedure outlined below automates this process somewhat.
+To fully reproduce the experiments, some additional steps are needed.
 
 First, obtain the [Turing Change Point 
 Dataset](https://github.com/alan-turing-institute/TCPD) and follow the 
@@ -158,11 +258,11 @@ instructions are as follows:
    $ make venvs
    ```
 
-   Note that this will also create an R virtual environment (using 
-   [RSimpleVenv](https://github.com/GjjvdBurg/RSimpleVenv)), which ensures 
-   that the exact versions of the packages used in the experiments will be 
-   installed. This step can take a little while (:coffee:), but is important 
-   to ensure reproducibility.
+   This will set up Python dependencies using uv and create an R virtual 
+   environment (using [RSimpleVenv](https://github.com/GjjvdBurg/RSimpleVenv)), 
+   which ensures that the exact versions of the packages used in the experiments 
+   will be installed. This step can take a little while (:coffee:), but is 
+   important to ensure reproducibility.
 
 5. Run abed through ``mpiexec``, as follows:
 
@@ -176,44 +276,6 @@ instructions are as follows:
    number of cores, as the expected runtime is on the order of 21 days on a 
    single core. Once this command starts running the experiments you will see 
    result files appear in the ``staging`` directory.
-
-### Running the experiments with Docker
-
-If you like to use [Docker](https://www.docker.com/) to manage the environment 
-and dependencies, you can do so easily with the provided Dockerfile. You can 
-build the Docker image using:
-
-```
-$ docker build -t alan-turing-institute/tcpdbench github.com/alan-turing-institute/TCPDBench
-```
-
-To ensure that the results created in the docker container persist to the 
-host, we need to create a volume first (following [these 
-instructions](https://stackoverflow.com/a/47528568/1154005)):
-
-```
-$ mkdir /path/to/tcpdbench/results     # *absolute* path where you want the results
-$ docker volume create --driver local \
-                       --opt type=none \
-                       --opt device=/path/to/tcpdbench/results \
-                       --opt o=bind tcpdbench_vol
-```
-
-You can then follow the same procedure as described above to reproduce the 
-experiments, but using the relevant docker commands to run them in the 
-container:
-
-* For reproducing just the tables and figures, use:
-  ```
-  $ docker run -i -t -v tcpdbench_vol:/TCPDBench alan-turing-institute/tcpdbench /bin/bash -c "make results"
-  ```
-
-* For reproducing all the experiments, use:
-  ```
-  $ docker run -i -t -v tcpdbench_vol:/TCPDBench alan-turing-institute/tcpdbench /bin/bash -c "mv abed_results old_abed_results && mkdir abed_results && abed reload_tasks && abed status && make venvs && mpiexec --allow-run-as-root -np 4 abed local && make results"
-  ```
-  where ``-np 4`` sets the number of cores used for the experiments to four. 
-  This can be changed as desired to increase efficiency.
 
 
 ## Extending the Benchmark
@@ -397,13 +459,12 @@ them to the respective dependency lists.
   to the R virtual environment. It is recommended to be specific in the 
   version of the package you want to use in the ``Rpackages.txt`` file, for 
   future reference and reproducibility.
-* For Python, individual methods use individual virtual environments, as can 
-  be seen from the bocpdms and rbocpdms examples. These virtual environments 
-  need to be activated in the ``COMMANDS`` section of the ``abed_conf.py`` 
-  file. Setting up these environments is done through the Makefile. Simply add 
-  a ``requirements.txt`` file in your package similarly to what is done for 
-  bocpdms and rbocpdms, copy and edit the corresponding lines in the Makefile, 
-  and run ``make venv_<yourmethod>`` to build the virtual environment.
+* For Python, individual methods use uv workspaces for dependency management. 
+  Create a ``pyproject.toml`` file in your method directory (e.g., 
+  ``execs/python/yourmethod/pyproject.toml``) defining your dependencies. The 
+  method will be automatically included in the workspace and can be run using 
+  ``uv run --project {execdir}/python/yourmethod`` in the ``COMMANDS`` section 
+  of ``abed_conf.py``. Run ``make venvs`` to set up all environments.
 
 
 #### Running experiments
