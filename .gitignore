@@ -61,3 +61,6 @@ Thumbs.db
 
 # Datasets (should be obtained separately)
 datasets/
+
+# Claude AI assistant guidance (local development only)
+CLAUDE.md
