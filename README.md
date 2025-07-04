@@ -1,8 +1,6 @@
 # Change Point Detection Benchmark (CPDBENCH)
 
-[![Reproducible Research](https://github.com/Tripudium/CPDBENCH/workflows/Reproducible%20Research/badge.svg)](https://github.com/Tripudium/CPDBENCH/actions?query=workflow%3A%22Reproducible+Research%22)
-
-*A modern, uv-powered implementation of the Turing Change Point Detection Benchmark*
+*An updated fork of the Turing Change Point Detection Benchmark*
 
 ## What's New in CPDBENCH 2.0
 
@@ -13,7 +11,6 @@ This is a modernized version of the original [TCPDBench](https://github.com/alan
 - **📚 Better Documentation**: Comprehensive installation guides for all platforms  
 - **🔧 Modern Tooling**: Updated CI/CD, better error handling, development tools
 - **🌍 Cross-Platform**: Improved support for macOS, Linux, and Windows
-- **⚡ Performance**: Faster development workflow and dependency resolution
 
 For migration details, see [MIGRATION.md](MIGRATION.md).
 
@@ -24,7 +21,6 @@ series from the [Turing Change Point
 Dataset](https://github.com/alan-turing-institute/TCPD) (TCPD).
 
 **Key Features:**
-- 🚀 **Modern Python tooling** with uv for fast dependency management
 - 📊 **14 change point detection algorithms** evaluated on 42 real-world datasets
 - 🔬 **Reproducible research** with comprehensive analysis pipeline
 - 🌐 **Multi-language support** for Python and R methods
